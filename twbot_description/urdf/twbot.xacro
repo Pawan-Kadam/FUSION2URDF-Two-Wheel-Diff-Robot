@@ -1,0 +1,138 @@
+<?xml version="1.0" ?>
+<robot name="twbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find twbot_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find twbot_description)/urdf/twbot.trans" />
+<xacro:include filename="$(find twbot_description)/urdf/twbot.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin rpy="0 0 0" xyz="0.1028169014084507 0.0 0.035"/>
+    <mass value="78.029"/>
+    <inertia ixx="0.563741" ixy="0.0" ixz="0.0" iyy="1.722787" iyz="0.0" izz="2.222804"/>
+  </inertial>
+  <visual>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <geometry>
+      <mesh filename="package://twbot_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <geometry>
+      <mesh filename="package://twbot_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_wheel_1">
+  <inertial>
+    <origin rpy="0 0 0" xyz="-1.3877787807814457e-17 0.01999999999999999 -2.7755575615628914e-17"/>
+    <mass value="9.86460093227195"/>
+    <inertia ixx="0.025977" ixy="0.0" ixz="-0.0" iyy="0.049323" iyz="0.0" izz="0.025977"/>
+  </inertial>
+  <visual>
+    <origin rpy="0 0 0" xyz="-0.05 -0.13 -0.035"/>
+    <geometry>
+      <mesh filename="package://twbot_description/meshes/left_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin rpy="0 0 0" xyz="-0.05 -0.13 -0.035"/>
+    <geometry>
+      <mesh filename="package://twbot_description/meshes/left_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_wheel_1">
+  <inertial>
+    <origin rpy="0 0 0" xyz="-2.7755575615628914e-17 -0.020000000000000018 -2.7755575615628914e-17"/>
+    <mass value="9.86460093227195"/>
+    <inertia ixx="0.025977" ixy="-0.0" ixz="-0.0" iyy="0.049323" iyz="-0.0" izz="0.025977"/>
+  </inertial>
+  <visual>
+    <origin rpy="0 0 0" xyz="-0.05 0.13 -0.035"/>
+    <geometry>
+      <mesh filename="package://twbot_description/meshes/right_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin rpy="0 0 0" xyz="-0.05 0.13 -0.035"/>
+    <geometry>
+      <mesh filename="package://twbot_description/meshes/right_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="laser_link_1">
+  <inertial>
+    <origin rpy="0 0 0" xyz="0.04999999999999999 0.0 0.024999999999999994"/>
+    <mass value="5.298749999999999"/>
+    <inertia ixx="0.011039" ixy="0.0" ixz="-0.0" iyy="0.004681" iyz="-0.0" izz="0.013512"/>
+  </inertial>
+  <visual>
+    <origin rpy="0 0 0" xyz="-0.3 0.0 -0.07"/>
+    <geometry>
+      <mesh filename="package://twbot_description/meshes/laser_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin rpy="0 0 0" xyz="-0.3 0.0 -0.07"/>
+    <geometry>
+      <mesh filename="package://twbot_description/meshes/laser_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="caster_wheel_1">
+  <inertial>
+    <origin rpy="0 0 0" xyz="0.024999999999999967 0.0 -5.537041901091708e-18"/>
+    <mass value="4.110250388446645"/>
+    <inertia ixx="0.00411" ixy="0.0" ixz="-0.0" iyy="0.00411" iyz="-0.0" izz="0.00411"/>
+  </inertial>
+  <visual>
+    <origin rpy="0 0 0" xyz="-0.25 -0.0 0.0"/>
+    <geometry>
+      <mesh filename="package://twbot_description/meshes/caster_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin rpy="0 0 0" xyz="-0.25 -0.0 0.0"/>
+    <geometry>
+      <mesh filename="package://twbot_description/meshes/caster_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Rev1" type="continuous">
+  <origin rpy="0 0 0" xyz="0.05 0.13 0.035"/>
+  <parent link="base_link"/>
+  <child link="left_wheel_1"/>
+  <axis xyz="0.0 1.0 0.0"/>
+</joint>
+
+<joint name="Rev2" type="continuous">
+  <origin rpy="0 0 0" xyz="0.05 -0.13 0.035"/>
+  <parent link="base_link"/>
+  <child link="right_wheel_1"/>
+  <axis xyz="0.0 -1.0 0.0"/>
+</joint>
+
+<joint name="Rigid3" type="fixed">
+  <origin rpy="0 0 0" xyz="0.3 0.0 0.07"/>
+  <parent link="base_link"/>
+  <child link="laser_link_1"/>
+</joint>
+
+<joint name="Rigid4" type="fixed">
+  <origin rpy="0 0 0" xyz="0.25 0.0 0.0"/>
+  <parent link="base_link"/>
+  <child link="caster_wheel_1"/>
+</joint>
+
+</robot>
